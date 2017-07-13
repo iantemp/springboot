@@ -1,9 +1,10 @@
 package com.example.demo.controllers;
 
+import com.example.demo.domain.dto.Customers;
+import com.example.demo.repository.CustomerRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -12,11 +13,18 @@ import org.springframework.web.servlet.ModelAndView;
 @RestController
 public class TestController {
 
-    @RequestMapping("/welcome")
+    @GetMapping("/welcome")
     public ModelAndView firstPage(){
         return new ModelAndView("welcome");
     }
 
+    @Autowired
+    CustomerRepository customerRepository;
 
+    @GetMapping("customer/save")
+    public void saveUser(){
+        Customers customer = new Customers(0L,"ian","dela cruz");
+        customerRepository.save(customer);
+    }
 
 }
