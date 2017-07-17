@@ -26,7 +26,7 @@ public class TestController {
 
     @PostMapping("/customer/save")
     @ResponseBody
-    public ModelAndView saveUser(@ModelAttribute Customer form){
+    public ModelAndView saveUser(@ModelAttribute Customer form) {
         customerRepository.save(toEntity(form));
         ModelAndView mv = new ModelAndView("success");
         mv.addObject(form);
@@ -37,5 +37,4 @@ public class TestController {
         Customers customers = new Customers(form.getId(), form.getFirstName(), form.getLastName());
         return customers;
     }
-
 }
