@@ -20,7 +20,7 @@ import javax.persistence.*;
         @Column(name = "lastname")
         private String lastName;
 
-        protected Customers(){}
+        public Customers(){}
 
         public Customers(Long id, String firstName, String lastName) {
             this.id = id;

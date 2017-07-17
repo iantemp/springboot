@@ -7,9 +7,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
     <meta name="description" content=""></meta>
     <meta name="author" content=""></meta>
-
 </head>
+
 <body>
-hello
+<form th:object:="${customer}" action="@{|/customer/save|}" method="post">
+  <input type="text" th:field="*{firstName}"/>
+  <input type="text" th:field="*{lastName}"/>
+  <button>Submit</button>
+</form>
 </body>
 </html>

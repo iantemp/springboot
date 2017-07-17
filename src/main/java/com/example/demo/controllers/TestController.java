@@ -1,5 +1,6 @@
 package com.example.demo.controllers;
 
+import com.example.demo.domain.dto.Customer;
 import com.example.demo.domain.dto.Customers;
 import com.example.demo.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,16 +16,26 @@ public class TestController {
 
     @GetMapping("/welcome")
     public ModelAndView firstPage(){
-        return new ModelAndView("welcome");
+        ModelAndView mv = new ModelAndView("welcome");
+        mv.addObject("customer", new Customer());
+        return mv;
     }
 
     @Autowired
     CustomerRepository customerRepository;
 
-    @GetMapping("customer/save")
-    public void saveUser(){
-        Customers customer = new Customers(0L,"ian","dela cruz");
-        customerRepository.save(customer);
+    @PostMapping("/customer/save")
+    @ResponseBody
+    public ModelAndView saveUser(@ModelAttribute Customer form){
+        customerRepository.save(toEntity(form));
+        ModelAndView mv = new ModelAndView("success");
+        mv.addObject(form);
+        return mv;
+    }
+
+    public Customers toEntity(Customer form) {
+        Customers customers = new Customers(form.getId(), form.getFirstName(), form.getLastName());
+        return customers;
     }
 
 }
